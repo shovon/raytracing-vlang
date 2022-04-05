@@ -19,16 +19,16 @@ fn (v Vec3) length() f32 {
 	return f32(math.sqrt(v.dot(v)))
 }
 fn (v1 Vec3) add(v2 Vec3) Vec3 {
-	return Vec3{[v1.x() + v2.x(), v1.y() + v2.y(), v1.z() + v1.z()]}
+	return Vec3{[v1.x() + v2.x(), v1.y() + v2.y(), v1.z() + v2.z()]}
 }
 fn (v1 Vec3) sub(v2 Vec3) Vec3 {
-	return Vec3{[v1.x() - v2.x(), v1.y() - v2.y(), v1.z() - v1.z()]}
+	return Vec3{[v1.x() - v2.x(), v1.y() - v2.y(), v1.z() - v2.z()]}
 }
 fn (v1 Vec3) div(v2 Vec3) Vec3 {
-	return Vec3{[v1.x() / v2.x(), v1.y() / v2.y(), v1.z() / v1.z()]}
+	return Vec3{[v1.x() / v2.x(), v1.y() / v2.y(), v1.z() / v2.z()]}
 }
 fn (v1 Vec3) mul(v2 Vec3) Vec3 {
-	return Vec3{[v1.x() * v2.x(), v1.y() * v2.y(), v1.z() * v1.z()]}
+	return Vec3{[v1.x() * v2.x(), v1.y() * v2.y(), v1.z() * v2.z()]}
 }
 fn (v Vec3) scalar_mul(t f32) Vec3 {
 	return Vec3{[v.x() * t, v.y() * t, v.z() * t]}

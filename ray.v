@@ -3,6 +3,6 @@ struct Ray {
 	b Vec3
 }
 
-fn (v Vec3) origin() Vec3 { return v.a }
-fn (v Vec3) direction() Vec3 { return v.b }
-fn (v Vec3) point_at_parameter(t f32) { return v.a.add(v.b.scalar_mul(t)) }
+fn (r Ray) origin() Vec3 { return r.a }
+fn (r Ray) direction() Vec3 { return r.b }
+fn (r Ray) point_at_parameter(t f32) Vec3 { return r.a.add(r.b.scalar_mul(t)) }

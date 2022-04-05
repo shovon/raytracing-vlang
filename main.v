@@ -1,15 +1,36 @@
+fn color(r Ray) Vec3 {
+	unit_direction := r.direction().unit_vector()
+	t := 0.5*(unit_direction.y() + 1.0)
+	return Vec3{[f32(1.0),f32(1.0),f32(1.0)]}
+		.scalar_mul(1.0-t)
+		.add(Vec3{[f32(0.5),f32(0.7),f32(1.0)]}.scalar_mul(t))
+}
+
 fn main() {
 	nx := 200
 	ny := 100
 
 	print('P3\n$nx $ny\n255\n')
 
+	lower_left_corner := Vec3{[f32(-2.0), f32(-1.0), f32(-1.0)]}
+	horizontal := Vec3{[f32(4.0), f32(0.0), f32(0.0)]}
+	vertical := Vec3{[f32(0.0), f32(2.0), f32(0.0)]}
+	origin := Vec3{[f32(0.0), f32(0.0), f32(0.0)]}
 	for j := ny-1; j >= 0; j-- {
 		for i := 0; i < nx; i++ {
-			col := Vec3{[f32(i) / f32(nx), f32(j) / f32(ny), 0.2]}
-			ir := int(255.99*col.r())
-			ig := int(255.99*col.g())
-			ib := int(255.99*col.b())
+			u := f32(i) / f32(nx)
+			v := f32(j) / f32(ny)
+			r := Ray{
+				origin,
+				lower_left_corner
+					.add(horizontal.scalar_mul(u))
+					.add(vertical.scalar_mul(v))
+			}
+			col := color(r)
+			ir := int(255.99*col.x())
+			ig := int(255.99*col.y())
+			ib := int(255.99*col.z())
+
 			println('$ir $ig $ib')
 		}
 	}
