@@ -27,7 +27,7 @@ fn main() {
 	print('P3\n$nx $ny\n255\n')
 
 	mut list := []Hitable{}
-	vec1 := Vec3{0.8, 0.3, 0.3}
+	vec1 := Vec3{0.1, 0.2, 0.5}
 	mat1 := &Lambertian{vec1}
 	list << &Sphere{Vec3{0,0,-1}, 0.5, mat1}
 
@@ -39,8 +39,9 @@ fn main() {
 	mat3 := &Metal{vec3, 0.3}
 	list << &Sphere{Vec3{1,0,-1}, 0.5, mat3}
 
-	vec4 := Vec3{0.8, 0.8, 0.8}
-	mat4 := &Metal{vec4, 1}
+	mat4 := &Dialectric{1.5}
+	// vec4 := Vec3{0.8, 0.6, 0.2}
+	// mat4 := &Metal{vec4, 0.3}
 	list << &Sphere{Vec3{-1,0,-1}, 0.5, mat4}
 
 	world := HitableList{list}
