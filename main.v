@@ -1,4 +1,5 @@
 import math
+import rand
 
 fn color(r Ray, world Hitable) Vec3 {
 	mut rec := new_hit_record()
@@ -16,13 +17,9 @@ fn color(r Ray, world Hitable) Vec3 {
 fn main() {
 	nx := 200
 	ny := 100
+	ns := 100
 
 	print('P3\n$nx $ny\n255\n')
-
-	lower_left_corner := Vec3{-2.0, -1.0, -1.0}
-	horizontal := Vec3{4.0, 0.0, 0.0}
-	vertical := Vec3{0.0, 2.0, 0.0}
-	origin := Vec3{0.0, 0.0, 0.0}
 
 	mut list := []Hitable{}
 	list << &Sphere{Vec3{0,0,-1}, 0.5}
@@ -30,17 +27,18 @@ fn main() {
 
 	world := HitableList{list}
 
+	cam := new_camera()
+
 	for j := ny-1; j >= 0; j-- {
 		for i := 0; i < nx; i++ {
-			u := f32(i) / f32(nx)
-			v := f32(j) / f32(ny)
-			r := Ray{
-				origin,
-				lower_left_corner
-					.add(horizontal.scalar_mul(u))
-					.add(vertical.scalar_mul(v))
+			mut col := Vec3{0, 0, 0}
+			for s := 0; s < ns; s++ {
+				u := (i + rand.f32()) / f32(nx)
+				v := (j + rand.f32()) / f32(ny)
+				r := cam.get_ray(u, v)
+				col = col.add(color(r, world))
 			}
-			col := color(r, world)
+			col = col.scalar_div(f32(ns))
 			ir := int(255.99*col.x())
 			ig := int(255.99*col.y())
 			ib := int(255.99*col.z())
