@@ -4,6 +4,7 @@ struct Sphere {
 mut:
 	center Vec3
 	radius f32
+	mat Material
 }
 
 fn (s Sphere) hit(r Ray, t_min f32, t_max f32, mut rec HitRecord) bool {

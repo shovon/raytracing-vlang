@@ -3,13 +3,15 @@ mut:
 	t f32
 	p Vec3
 	normal Vec3
+	mat Material
 }
 
 fn new_hit_record() HitRecord {
 	return HitRecord{
 		0,
 		Vec3{0,0,0},
-		Vec3{0,0,0}
+		Vec3{0,0,0},
+		Lambertian{}
 	}
 }
 
