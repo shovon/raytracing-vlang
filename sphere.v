@@ -14,6 +14,7 @@ fn (s Sphere) hit(r Ray, t_min f32, t_max f32, mut rec HitRecord) bool {
 	c := oc.dot(oc) - s.radius * s.radius
 	discriminant := b*b - a*c
 	if discriminant > 0 {
+		rec.mat = s.mat
 		mut temp := (-b - f32(math.sqrt((b*b) - (a*c))))/a
 		if temp < t_max && temp > t_min {
 			rec.t = temp

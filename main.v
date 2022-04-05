@@ -7,7 +7,7 @@ fn color(r Ray, world Hitable, depth int) Vec3 {
 		mut scattered := Ray{}
 		mut attenuation := Vec3{}
 		if depth < 50 && rec.mat.scatter(r, rec, mut attenuation, mut scattered) {
-			return color(scattered, world, depth+1)
+			return attenuation.mul(color(scattered, world, depth+1))
 		}
 		return Vec3{}
 	}
@@ -27,10 +27,21 @@ fn main() {
 	print('P3\n$nx $ny\n255\n')
 
 	mut list := []Hitable{}
-	list << &Sphere{Vec3{0,0,-1}, 0.5, Lambertian{Vec3{0.8, 0.3, 0.3}}}
-	list << &Sphere{Vec3{0,-100.5,-1}, 100, Lambertian{Vec3{0.8, 0.8, 0.0}}}
-	list << &Sphere{Vec3{1,0,-1}, 0.5, Metal{Vec3{0.8, 0.6, 0.2}}}
-	list << &Sphere{Vec3{-1,0,-1}, 0.5, Metal{Vec3{0.8, 0.8, 0.8}}}
+	vec1 := Vec3{0.8, 0.3, 0.3}
+	mat1 := &Lambertian{vec1}
+	list << &Sphere{Vec3{0,0,-1}, 0.5, mat1}
+
+	vec2 := Vec3{0.8, 0.8, 0.0}
+	mat2 := &Lambertian{vec2}
+	list << &Sphere{Vec3{0,-100.5,-1}, 100, mat2}
+
+	vec3 := Vec3{0.8, 0.6, 0.2}
+	mat3 := &Metal{vec3, 0.3}
+	list << &Sphere{Vec3{1,0,-1}, 0.5, mat3}
+
+	vec4 := Vec3{0.8, 0.8, 0.8}
+	mat4 := &Metal{vec4, 1}
+	list << &Sphere{Vec3{-1,0,-1}, 0.5, mat4}
 
 	world := HitableList{list}
 
