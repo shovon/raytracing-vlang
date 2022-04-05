@@ -1,9 +1,21 @@
 fn color(r Ray) Vec3 {
+	if hit_sphere(Vec3{[f32(0.0),f32(0.0),f32(-1.0)]}, 0.5, r) {
+		return Vec3{[f32(-1.0),f32(0.0),f32(0.0)]}
+	}
 	unit_direction := r.direction().unit_vector()
 	t := 0.5*(unit_direction.y() + 1.0)
 	return Vec3{[f32(1.0),f32(1.0),f32(1.0)]}
 		.scalar_mul(1.0-t)
 		.add(Vec3{[f32(0.5),f32(0.7),f32(1.0)]}.scalar_mul(t))
+}
+
+fn hit_sphere(center Vec3, radius f32, r Ray) bool {
+	oc := r.origin().sub(center)
+	a := r.direction().dot(r.direction())
+	b := oc.dot(r.direction()) * 2.0
+	c := oc.dot(oc) - radius * radius
+	discriminant := b*b - 4*a*c
+	return discriminant > 0
 }
 
 fn main() {
