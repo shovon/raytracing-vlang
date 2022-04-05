@@ -1,30 +1,16 @@
 import math
 
-fn color(r Ray) Vec3 {
-	mut t := hit_sphere(Vec3{[f32(0.0),f32(0.0),f32(-1.0)]}, 0.5, r)
-	if t > 0.0 {
-		n := r.point_at_parameter(t).sub(Vec3{[f32(0),f32(0),f32(-1)]})
-			.unit_vector()
-		return n.add(Vec3{[f32(1),f32(1),f32(1)]}).scalar_mul(0.5)
+fn color(r Ray, world Hitable) Vec3 {
+	mut rec := new_hit_record()
+	if world.hit(r, 0.0, math.max_f32, mut rec) {
+		return Vec3{[f32(1), f32(1), f32(1)]}.add(rec.normal).scalar_mul(0.5)
 	}
+
 	unit_direction := r.direction().unit_vector()
-	t = 0.5*(unit_direction.y() + 1.0)
-	return Vec3{[f32(1.0),f32(1.0),f32(1.0)]}
+	t := (unit_direction.y() + 1.0)*0.5
+	return Vec3{[f32(1),f32(1),f32(1)]}
 		.scalar_mul(1.0-t)
-		.add(Vec3{[f32(0.5),f32(0.7),f32(1.0)]}.scalar_mul(t))
-}
-
-fn hit_sphere(center Vec3, radius f32, r Ray) f32 {
-	oc := r.origin().sub(center)
-	a := r.direction().dot(r.direction())
-	b := oc.dot(r.direction()) * 2.0
-	c := oc.dot(oc) - radius * radius
-	discriminant := b*b - 4*a*c
-	if discriminant < 0 {
-		return -1.0
-	}
-
-	return (-b - f32(math.sqrt(discriminant))) / (2.0*a)
+		.add(Vec3{[f32(0.5), f32(0.7), f32(1.0)]}.scalar_mul(t))
 }
 
 fn main() {
@@ -37,6 +23,13 @@ fn main() {
 	horizontal := Vec3{[f32(4.0), f32(0.0), f32(0.0)]}
 	vertical := Vec3{[f32(0.0), f32(2.0), f32(0.0)]}
 	origin := Vec3{[f32(0.0), f32(0.0), f32(0.0)]}
+
+	mut list := []Hitable{}
+	list << &Sphere{Vec3{[f32(0),f32(0),f32(-1)]}, 0.5}
+	list << &Sphere{Vec3{[f32(0),f32(-100.5),f32(-1)]}, 100}
+
+	world := HitableList{list}
+
 	for j := ny-1; j >= 0; j-- {
 		for i := 0; i < nx; i++ {
 			u := f32(i) / f32(nx)
@@ -47,7 +40,7 @@ fn main() {
 					.add(horizontal.scalar_mul(u))
 					.add(vertical.scalar_mul(v))
 			}
-			col := color(r)
+			col := color(r, world)
 			ir := int(255.99*col.x())
 			ig := int(255.99*col.y())
 			ib := int(255.99*col.z())
