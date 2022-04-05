@@ -3,8 +3,9 @@ import rand
 
 fn color(r Ray, world Hitable) Vec3 {
 	mut rec := new_hit_record()
-	if world.hit(r, 0.0, math.max_f32, mut rec) {
-		return Vec3{1, 1, 1}.add(rec.normal).scalar_mul(0.5)
+	if world.hit(r, 0.001, math.max_f32, mut rec) {
+		target := rec.p.add(rec.normal).add(random_in_unit_sphere())
+		return color(Ray{rec.p, target.sub(rec.p)}, world).scalar_mul(0.5)
 	}
 
 	unit_direction := r.direction().unit_vector()
@@ -15,8 +16,8 @@ fn color(r Ray, world Hitable) Vec3 {
 }
 
 fn main() {
-	nx := 200
-	ny := 100
+	nx := 800
+	ny := 400
 	ns := 100
 
 	print('P3\n$nx $ny\n255\n')
@@ -39,6 +40,11 @@ fn main() {
 				col = col.add(color(r, world))
 			}
 			col = col.scalar_div(f32(ns))
+			col = Vec3{
+				f32(math.sqrt(col.e0)),
+				f32(math.sqrt(col.e1)),
+				f32(math.sqrt(col.e2))
+			}
 			ir := int(255.99*col.x())
 			ig := int(255.99*col.y())
 			ib := int(255.99*col.z())

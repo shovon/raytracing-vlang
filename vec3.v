@@ -1,10 +1,35 @@
 import math
+import rand
 
 struct Vec3 {
 mut:
 	e0 f32
 	e1 f32
 	e2 f32
+}
+
+fn random_vec3() Vec3 {
+	return Vec3{rand.f32(), rand.f32(), rand.f32()}
+}
+
+fn random_vec3_min_max(min f32, max f32) Vec3 {
+	return Vec3{
+		rand_f32_min_max(min, max),
+		rand_f32_min_max(min, max),
+		rand_f32_min_max(min, max)
+	}
+}
+
+fn random_in_unit_sphere() Vec3 {
+	mut p := Vec3{}
+	for {
+		p = random_vec3_min_max(-1, 1)
+		if p.dot(p) >= 1 {
+			continue
+		}
+		break
+	}
+	return p
 }
 
 fn (v Vec3) x() f32 { return v.e0 }
