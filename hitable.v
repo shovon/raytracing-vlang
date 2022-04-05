@@ -8,8 +8,8 @@ mut:
 fn new_hit_record() HitRecord {
 	return HitRecord{
 		0,
-		Vec3{[f32(0),f32(0),f32(0)]},
-		Vec3{[f32(0),f32(0),f32(0)]}
+		Vec3{0,0,0},
+		Vec3{0,0,0}
 	}
 }
 
