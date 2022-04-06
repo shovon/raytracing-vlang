@@ -1,3 +1,5 @@
+import math
+
 struct Camera {
 	origin Vec3
 	lower_left_corner Vec3
@@ -5,12 +7,16 @@ struct Camera {
 	vertical Vec3
 }
 
-fn new_camera() Camera {
+fn new_camera(vfov f32, aspect f32) Camera {
+	theta := vfov*math.pi/180
+	half_height := f32(math.tan(theta/2))
+	half_width := aspect * half_height
+
 	return Camera{
 		Vec3{0, 0, 0},
-		Vec3{-2, -1, -1},
-		Vec3{4, 0, 0},
-		Vec3{0, 2, 0}
+		Vec3{-half_width, -half_height, -1.0},
+		Vec3{2*half_width, 0, 0},
+		Vec3{0, 2*half_height, 0}
 	}
 }
 
