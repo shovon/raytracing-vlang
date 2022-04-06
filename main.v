@@ -56,7 +56,11 @@ fn main() {
 
 	world := HitableList{list}
 
-	cam := new_camera(Vec3{-2, 2, 1}, Vec3{0, 0, -1}, Vec3{0, 1, 0}, 45, f32(nx)/f32(ny))
+	lookfrom := Vec3{3, 3, 2}
+	lookat := Vec3{0, 0, -1}
+	dist_to_focus := lookfrom.sub(lookat).length()
+	aperture := f32(2.0)
+	cam := new_camera(lookfrom, lookat, Vec3{0, 1, 0}, 29, f32(nx)/f32(ny), aperture, dist_to_focus)
 
 	for j := ny-1; j >= 0; j-- {
 		for i := 0; i < nx; i++ {
