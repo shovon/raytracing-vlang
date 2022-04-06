@@ -4,7 +4,7 @@
 
 This is a ray tracing implementation in V, pretty much a re-implementation of an [earlier attempt](https://github.com/shovon/raytracing-golang) in Go
 
-All implementation was translated from the minibook _[Ray Tracing In One Weekend](https://www.amazon.ca/Ray-Tracing-Weekend-Minibooks-Book-ebook/dp/B01B5AODD8)_. The book opted for C++, but I figured a good way to both try out V.
+All implementation was translated from the minibook _[Ray Tracing In One Weekend](https://www.amazon.ca/Ray-Tracing-Weekend-Minibooks-Book-ebook/dp/B01B5AODD8)_. The book opted for C++, but I figured a good way to try out V.
 
 ## Running the ray tracer
 
