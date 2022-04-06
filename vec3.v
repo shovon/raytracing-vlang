@@ -40,7 +40,7 @@ fn (v Vec3) g() f32 { return v.e1 }
 fn (v Vec3) b() f32 { return v.e2 }
 
 fn (v Vec3) length() f32 {
-	return f32(math.sqrt(v.dot(v)))
+	return math.sqrtf(v.dot(v))
 }
 fn (v1 Vec3) add(v2 Vec3) Vec3 {
 	return Vec3{v1.e0 + v2.e0, v1.e1 + v2.e1, v1.e2 + v2.e2}

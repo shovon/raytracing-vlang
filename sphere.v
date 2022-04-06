@@ -15,14 +15,14 @@ fn (s Sphere) hit(r Ray, t_min f32, t_max f32, mut rec HitRecord) bool {
 	discriminant := b*b - a*c
 	if discriminant > 0 {
 		rec.mat = s.mat
-		mut temp := (-b - f32(math.sqrt((b*b) - (a*c))))/a
+		mut temp := (-b - math.sqrtf((b*b) - (a*c)))/a
 		if temp < t_max && temp > t_min {
 			rec.t = temp
 			rec.p = r.point_at_parameter(rec.t)
 			rec.normal = rec.p.sub(s.center).scalar_div(s.radius)
 			return true
 		}
-		temp = (-b + f32(math.sqrt((b*b) - (a*c))))/a
+		temp = (-b + math.sqrtf((b*b) - (a*c)))/a
 		if temp < t_max && temp > t_min {
 			rec.t = temp
 			rec.p = r.point_at_parameter(rec.t)

@@ -16,4 +16,4 @@ v run . > img.ppm
 
 The program outputs portable pixmap format to the console/stdout, and so, the `>` symbol writes the output to a file.
 
-Rendering a whole 1024 by 576 image takes around an hour my 2019 M1 MacBook Pro. If you want something rendered quicker, change the `nx` and `ny` variables in `main()`, in `main.v` to something smaller than 1024 by 576 (perhaps 200 and 100, respectively).
+Rendering a whole 1024 by 576 image takes around an 3 minutes on my 2019 M1 MacBook Pro. If you want something rendered quicker, change the `nx` and `ny` variables in `main()`, in `main.v` to something smaller than 1024 by 576 (perhaps 200 and 100, respectively).

@@ -123,9 +123,9 @@ fn main() {
 			}
 			col = col.scalar_div(f32(ns))
 			col = Vec3{
-				f32(math.sqrt(col.e0)),
-				f32(math.sqrt(col.e1)),
-				f32(math.sqrt(col.e2))
+				math.sqrtf(col.e0),
+				math.sqrtf(col.e1),
+				math.sqrtf(col.e2)
 			}
 			ir := int(255.99*col.x())
 			ig := int(255.99*col.y())

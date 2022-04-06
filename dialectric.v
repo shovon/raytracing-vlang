@@ -6,7 +6,7 @@ fn refract(v Vec3, n Vec3, ni_over_nt f32, mut refracted Vec3) bool {
 	dt := uv.dot(n)
 	discriminant := 1.0 - ni_over_nt*ni_over_nt*(1-dt*dt)
 	if discriminant > 0 {
-		refracted = uv.sub(n.scalar_mul(dt)).scalar_mul(ni_over_nt).sub(n.scalar_mul(f32(math.sqrt(discriminant))))
+		refracted = uv.sub(n.scalar_mul(dt)).scalar_mul(ni_over_nt).sub(n.scalar_mul(math.sqrtf(discriminant)))
 		return true
 	}
 	return false
