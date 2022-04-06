@@ -27,36 +27,36 @@ fn main() {
 	print('P3\n$nx $ny\n255\n')
 
 	mut list := []Hitable{}
-	// vec1 := Vec3{0.1, 0.2, 0.5}
-	// mat1 := &Lambertian{vec1}
-	// list << &Sphere{Vec3{0,0,-1}, 0.5, mat1}
-
-	// vec2 := Vec3{0.8, 0.8, 0.0}
-	// mat2 := &Lambertian{vec2}
-	// list << &Sphere{Vec3{0,-100.5,-1}, 100, mat2}
-
-	// vec3 := Vec3{0.8, 0.6, 0.2}
-	// mat3 := &Metal{vec3, 0.3}
-	// list << &Sphere{Vec3{1,0,-1}, 0.5, mat3}
-
-	// mat4 := &Dialectric{1.5}
-	// list << &Sphere{Vec3{-1,0,-1}, 0.5, mat4}
-
-	// mat5 := &Dialectric{1.5}
-	// list << &Sphere{Vec3{-1,0,-1}, -0.45, mat5}
-
-	radius := f32(math.cos(math.pi / 4))
-	vec1 := Vec3{0, 0, 1}
+	vec1 := Vec3{0.1, 0.2, 0.5}
 	mat1 := &Lambertian{vec1}
-	list << &Sphere{Vec3{-radius,0,-1}, radius, mat1}
+	list << &Sphere{Vec3{0,0,-1}, 0.5, mat1}
 
-	vec2 := Vec3{1, 0, 0}
+	vec2 := Vec3{0.8, 0.8, 0.0}
 	mat2 := &Lambertian{vec2}
-	list << &Sphere{Vec3{radius,0,-1}, radius, mat2}
+	list << &Sphere{Vec3{0,-100.5,-1}, 100, mat2}
+
+	vec3 := Vec3{0.8, 0.6, 0.2}
+	mat3 := &Metal{vec3, 0.3}
+	list << &Sphere{Vec3{1,0,-1}, 0.5, mat3}
+
+	mat4 := &Dialectric{1.5}
+	list << &Sphere{Vec3{-1,0,-1}, 0.5, mat4}
+
+	mat5 := &Dialectric{1.5}
+	list << &Sphere{Vec3{-1,0,-1}, -0.45, mat5}
+
+	// radius := f32(math.cos(math.pi / 4))
+	// vec1 := Vec3{0, 0, 1}
+	// mat1 := &Lambertian{vec1}
+	// list << &Sphere{Vec3{-radius,0,-1}, radius, mat1}
+
+	// vec2 := Vec3{1, 0, 0}
+	// mat2 := &Lambertian{vec2}
+	// list << &Sphere{Vec3{radius,0,-1}, radius, mat2}
 
 	world := HitableList{list}
 
-	cam := new_camera(90, f32(nx)/f32(ny))
+	cam := new_camera(Vec3{-2, 2, 1}, Vec3{0, 0, -1}, Vec3{0, 1, 0}, 45, f32(nx)/f32(ny))
 
 	for j := ny-1; j >= 0; j-- {
 		for i := 0; i < nx; i++ {

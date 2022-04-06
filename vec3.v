@@ -43,30 +43,30 @@ fn (v Vec3) length() f32 {
 	return f32(math.sqrt(v.dot(v)))
 }
 fn (v1 Vec3) add(v2 Vec3) Vec3 {
-	return Vec3{v1.x() + v2.x(), v1.y() + v2.y(), v1.z() + v2.z()}
+	return Vec3{v1.e0 + v2.e0, v1.e1 + v2.e1, v1.e2 + v2.e2}
 }
 fn (v1 Vec3) sub(v2 Vec3) Vec3 {
-	return Vec3{v1.x() - v2.x(), v1.y() - v2.y(), v1.z() - v2.z()}
+	return v1.add(v2.scalar_mul(-1))
 }
 fn (v1 Vec3) div(v2 Vec3) Vec3 {
-	return Vec3{v1.x() / v2.x(), v1.y() / v2.y(), v1.z() / v2.z()}
+	return Vec3{v1.e0 / v2.e0, v1.e1 / v2.e1, v1.e2 / v2.e2}
 }
 fn (v1 Vec3) mul(v2 Vec3) Vec3 {
-	return Vec3{v1.x() * v2.x(), v1.y() * v2.y(), v1.z() * v2.z()}
+	return Vec3{v1.e0 * v2.e0, v1.e1 * v2.e1, v1.e2 * v2.e2}
 }
 fn (v Vec3) scalar_mul(t f32) Vec3 {
-	return Vec3{v.x() * t, v.y() * t, v.z() * t}
+	return v.mul(Vec3{t, t, t})
 }
 fn (v Vec3) scalar_div(t f32) Vec3 {
-	return Vec3{v.x() / t, v.y() / t, v.z() / t}
+	return v.scalar_mul(1/t)
 }
 fn (v1 Vec3) dot(v2 Vec3) f32 {
-	return v1.x()*v2.x() + v1.y()*v2.y() + v1.z()*v2.z()
+	return v1.e0*v2.e0 + v1.e1*v2.e1 + v1.e2*v2.e2
 }
 fn (v1 Vec3) cross(v2 Vec3) Vec3 {
 	return Vec3{
 			v1.y()*v2.z() - v1.z()*v2.y(),
-			v1.x()*v2.z() - v1.z()*v2.x(),
+			-(v1.x()*v2.z() - v1.z()*v2.x()),
 			v1.x()*v2.y() - v1.y()*v2.x()
 	}
 }

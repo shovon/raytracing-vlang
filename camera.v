@@ -7,16 +7,35 @@ struct Camera {
 	vertical Vec3
 }
 
-fn new_camera(vfov f32, aspect f32) Camera {
+fn new_camera(lookfrom Vec3, lookat Vec3, vup Vec3, vfov f32, aspect f32) Camera {
+	mut u := Vec3{}
+	mut v := Vec3{}
+	mut w := Vec3{}
+
 	theta := vfov*math.pi/180
 	half_height := f32(math.tan(theta/2))
 	half_width := aspect * half_height
 
+	origin := lookfrom
+
+	w = lookfrom.sub(lookat).unit_vector()
+	u = vup.cross(w).unit_vector()
+	v = w.cross(u)
+
+	mut lower_left_corner := Vec3{-half_width, -half_height, -1.0}
+	lower_left_corner = origin
+		.sub(u.scalar_mul(half_width))
+		.sub(v.scalar_mul(half_height))
+		.sub(w)
+	
+	horizontal := u.scalar_mul(2 * half_width)
+	vertical := v.scalar_mul(2 * half_height)
+
 	return Camera{
-		Vec3{0, 0, 0},
-		Vec3{-half_width, -half_height, -1.0},
-		Vec3{2*half_width, 0, 0},
-		Vec3{0, 2*half_height, 0}
+		origin,
+		lower_left_corner,
+		horizontal,
+		vertical
 	}
 }
 
