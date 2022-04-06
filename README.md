@@ -11,7 +11,8 @@ All implementation was translated from the minibook _[Ray Tracing In One Weekend
 Be sure to have [V](https://vlang.io/) installed. Then, from this directory, just run:
 
 ```
-v run . > img.ppm
+v . -prod
+./raytracer-vlang run . > img.ppm
 ```
 
 The program outputs portable pixmap format to the console/stdout, and so, the `>` symbol writes the output to a file.
