@@ -1,1 +1,4 @@
-img.ppm
+*.ppm
+.DS_Store
+*.profraw
+*.profdata
